@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reboot Coffee</title>
+  <link rel="stylesheet" href="css/RebootCoffee.css" />
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+</head>
+<body>
+  <!-- header session -->
+  <header class="navbar">
+    <h1>Reboot Coffee ☕</h1>
+    <nav id="mainNav">
+      <ul id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#affiliate">Affiliate</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button onclick="toggleDarkMode()">☀️/🌙</button></li>
+        <li><button onclick="viewCart()">🛒 <span id="cart-count">0</span></button></li>
+      </ul>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <h1>Reboot Your Brain, Refocus Your Life</h1>
+    <p>A brain-boosting, energy-focused coffee crafted for students, professionals, and warriors overcoming distractions and addictions. <br>  Reboot Coffee is crafted for dreamers, doers — anyone who wants to feel sharp, energized, and in control</p>
+    <button onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">Explore Products</button>
+  </section>
+
+  <!-- Product Section -->
+  <section id="products" class="fade-in">
+    <h2>Our Coffee Products Blend</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="coffee1.jpg" alt="Coffee Original">
+        <h3>Coffee Original</h3>
+        <p>Original Coffee That Helps Dibetics Patients.</p>
+        <p>Price: <span>₦3500</span></p>
+        <button onclick='addToCart({ name: "Coffee Original", price: 3500 })'>Add To Cart 🛒</button>
+      </div>
+      <div class="product-card">
+        <img src="coffee2.jpg" alt="Energy Blend">
+        <h3>Energy Blend</h3>
+        <p>Makes You Feel Energetic without a crash.</p>
+        <p>Price: <span>₦2500</span></p>
+        <button onclick='addToCart({ name: "Energy Blend", price: 2500 })'>Add To Cart 🛒</button>
+      </div>
+      <div class="product-card">
+        <img src="coffee3.jpg" alt="Focus Blend">
+        <h3>Focus Blend</h3>
+        <p>Sharpen your focus and energy without a crash.</p>
+        <p>Price: <span>₦6500</span></p>
+        <button onclick='addToCart({ name: "Focus Blend", price: 6500 })'>Add To Cart 🛒</button>
+      </div>
+      <div class="product-card">
+        <img src="coffee4.jpg" alt="Calm Detox">
+        <h3>Calm Detox</h3>
+        <p>Helps reduce cravings and stress-related fatigue.</p>
+        <p>Price: <span>₦4000</span></p>
+        <button onclick='addToCart({ name: "Calm Detox", price: 4000 })'>Add To Cart 🛒</button>
+      </div>
+      <!-- Add more products as needed -->
+    </div>
+    <button class="btn" onclick="payWithFlutterwave()">Checkout</button>
+  </section>
+
+  <!-- Checkout Modal for Shipping Address -->
+  <div id="checkout-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeCheckoutModal()">&times;</span>
+      <h2>Shipping Details</h2>
+      <form id="shippingForm" onsubmit="submitShipping(event)">
+        <label for="shipName">Full Name</label>
+        <input type="text" id="shipName" name="shipName" required>
+        <label for="shipEmail">Email</label>
+        <input type="email" id="shipEmail" name="shipEmail" required>
+        <label for="shipPhone">Phone</label>
+        <input type="tel" id="shipPhone" name="shipPhone" required>
+        <label for="shipAddress">Address</label>
+        <input type="text" id="shipAddress" name="shipAddress" required>
+        <label for="shipCity">City</label>
+        <input type="text" id="shipCity" name="shipCity" required>
+        <label for="shipState">State</label>
+        <input type="text" id="shipState" name="shipState" required>
+        <label for="shipCountry">Country</label>
+        <input type="text" id="shipCountry" name="shipCountry" required>
+        <label for="shipPostal">Postal Code</label>
+        <input type="text" id="shipPostal" name="shipPostal" required>
+        <button type="submit">Proceed to Payment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- About Us -->
+  <section class="about" id="about">
+    <h2>About Us</h2>
+    <p>At Reboot Coffee, we’re on a mission to sharpen your focus, empower your health, and help you beat distractions. Whether you're grinding for exams, pushing through a night shift, or saying goodbye to harmful habits, our coffee is your natural ally. Built by a team who cares about both wellness and performance. <br> We are redefining coffee for clarity and health — specially brewed for people fighting addiction, battling fatigue, living with diabetes, or seeking focus in a distracted world</p>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials" id="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial">
+      <p>"Since I started using Reboot Coffee, I’ve ditched sugary energy drinks and my productivity has tripled!"</p>
+      <h4>— Jane A., Software Engineer</h4>
+    </div>
+    <div class="testimonial">
+      <p>"It helped me stay focused during my final exams. No jitters, just clean mental power."</p>
+      <h4>— Tunde M., University Student</h4>
+    </div>
+    <div class="testimonial">
+      <p>"As a recovering smoker, I needed a new daily ritual. Reboot Coffee gave me that & more."</p>
+      <h4>— Ruth K., Sales Manager</h4>
+    </div>
+  </section>
+
+  <!-- Reboot Affiliate -->
+  <section class="affiliate" id="affiliate">
+    <h2>Become a Reboot Affiliate</h2>
+    <p>Refer friends, earn commissions, and join our mission of helping people focus and feel better, Get your unique link, share, and earn on every sale. For every referral that buys, you earn cash back.</p>
+    <a href="mailto:affiliate@rebootcoffee.com" class="btn">Apply to Affiliate Program</a>
+  </section>
+
+  <!-- FAQs Section -->
+  <section class="faqs" id="faqs" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions (FAQs)</h2>
+    <details>
+      <summary>Why Reboot?</summary>
+      <p>Reboot Coffee isn't just about caffeine. It's designed to help you reset from brain fog, addiction, distractions, and fatigue. It’s your daily ritual for energy, memory, and purpose — without the crash.</p>
+    </details>
+    <details>
+      <summary>Who Is It For?</summary>
+      <p>Designed for students, shift workers, ex-smokers & creators</p>
+    </details>
+    <details>
+      <summary>What Does It Help With?</summary>
+      <p>Supports memory, sharp focus, and consistent energy</p>
+    </details>
+    <details>
+      <summary>How do I get support?</summary>
+      <p>WhatsApp chat us on (+234)-813-398-0427 or click <a href="https://wa.me/2348133980427">WhatsApp</a></p>
+    </details>
+  </section>
+
+  <!-- Contact + Subscribe -->
+  <section class="contact" id="contact">
+    <h2>Stay Connected</h2>
+    <p>Have questions? Want updates? Subscribe and follow us!</p>
+    <form onsubmit="event.preventDefault(); alert('Thanks for subscribing!');">
+      <input type="email" placeholder="Enter your email" required />
+      <input type="tel" placeholder="Phone number for SMS updates" />
+      <button type="submit">Subscribe</button>
+    </form>
+    <div class="socials" class="fade-in">
+      <h2>Contact Us</h2>
+      <p>Email: <a href="mailto:hello@rebootcoffee.com">hello@rebootcoffee.com</a></p>
+      <p>WhatsApp: <a href="https://wa.me/2348133980427">+234 813 398 0427</a></p>
+      <p>Instagram: <a href="https://instagram.com/rebootcoffee">@rebootcoffee</a></p>
+    </div>
+  </section>
+
+  <!-- footer session -->
+  <footer>
+    <p>&copy; 2025 Reboot Coffee. All rights reserved. Built for brains that won't quit.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+    function payWithFlutterwave() {
+      document.getElementById('checkout-modal').style.display = 'block';
+    }
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').style.display = 'none';
+    }
+    function submitShipping(e) {
+      e.preventDefault();
+      // Collect shipping info and proceed to payment
+      alert('Shipping info submitted! Proceeding to payment...');
+      closeCheckoutModal();
+      // Call your payment function here
+    }
+  </script>
+  <script src="js/RebootCoffee.js"></script>
+
+  <!-- Google Analytics -->
+  <script>
+    ga('create', 'UA-XXXXXXXXX-X', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <!-- Meta Pixel -->
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></noscript>
